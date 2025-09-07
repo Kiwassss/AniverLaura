@@ -14,15 +14,19 @@
             overflow: hidden;
             background: #fff;
         }
+        
 .img-full {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: auto;
-    object-fit: contain;
-    object-position: center;
+    max-height: 100vh;
+    object-fit: cover;
+    object-position: top;
     z-index: 1;
 }
+
 .mensagem-box {
     position: absolute;
     left: 50%;

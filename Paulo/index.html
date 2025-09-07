@@ -15,39 +15,41 @@
             background: #fff;
         }
         .img-full {
-        position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-    z-index: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            max-height: 100vh;
+            object-fit: cover;
+            object-position: top;
+            z-index: 1;
         }
         .mensagem-box {
-    position: absolute;
-    left: 50%;
-    top: 50%; /* ajuste para alinhar verticalmente ao quadrado */
-    transform: translate(-50%, -50%);
-    width: 200px !important; /* ajuste para a largura do quadrado vermelho */
-    height: 260px !important;  /* ajuste para a altura do quadrado vermelho */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    text-align: center;
-    overflow: hidden;
-    background: none;
+            position: absolute;
+            left: 50%;
+            top: 50%; /* ajuste para alinhar verticalmente ao quadrado */
+            transform: translate(-50%, -50%);
+            width: 200px !important; /* ajuste para a largura do quadrado vermelho */
+            height: 260px !important;  /* ajuste para a altura do quadrado vermelho */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            text-align: center;
+            overflow: hidden;
+            background: none;
         }
         .mensagem-box span {
-    font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
-    color: #ffe97b;
-    font-size: 1.5em !important;
-    word-break: break-word;
-    line-height: 1.1;
-    text-shadow: 2px 2px 8px #00000060;
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
+            font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+            color: #ffe97b;
+            font-size: 1.5em !important;
+            word-break: break-word;
+            line-height: 1.1;
+            text-shadow: 2px 2px 8px #00000060;
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
         }
         @media (max-width: 700px) {
             .mensagem-box {

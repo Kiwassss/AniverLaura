@@ -1,0 +1,3 @@
+- [x] Update Sim.html: Add CSS for img { pointer-events: none; }, * { user-select: none; }, and JS event listeners for contextmenu, dragstart, selectstart.
+- [x] Update Nao.html: Same changes as Sim.html.
+- [ ] Test on mobile to ensure long-press download is disabled.

@@ -3,11 +3,11 @@ import os
 # Lista de 60 nomes aleatórios para teste
 nomes = [
     "Ana", "Bruno", "Camila", "Daniel", "Eduardo", "Fernanda", "Gabriel", "Helena", "Igor", "Juliana",
-    "Karina", "Lucas", "Mariana", "Natan", "Olivia", "Paulo", "Quésia", "Rafael", "Sabrina", "Tiago",
+    "Karina", "Lucas", "Mariana", "Natan", "Olivia", "Paulo", "Quesia", "Rafael", "Sabrina", "Tiago",
     "Ursula", "Vanessa", "Wagner", "Xuxa", "Yasmin", "Zeca", "Alice", "Bernardo", "Clara", "Diego",
-    "Elisa", "Felipe", "Giovana", "Hugo", "Isabela", "João", "Kelly", "Leonardo", "Mirela", "Nicolas",
-    "Otávio", "Priscila", "Rodrigo", "Samara", "Tadeu", "Ulisses", "Vitória", "William", "Yasmin S.",
-    "Zuleica", "Arthur", "Bianca", "Caio", "Duda", "Enzo", "Flávia", "Gustavo", "Heloísa", "Ingrid", "Jorge"
+    "Elisa", "Felipe", "Giovana", "Hugo", "Isabela", "Joao", "Kelly", "Leonardo", "Mirela", "Nicolas",
+    "Otavio", "Priscila", "Rodrigo", "Samara", "Tadeu", "Ulisses", "Vitoria", "William", "YasminS",
+    "Zuleica", "Arthur", "Bianca", "Caio", "Duda", "Enzo", "Flavia", "Gustavo", "Heloisa", "Ingrid", "Jorge"
 ]
 
 # HTML base para index.html

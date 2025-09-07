@@ -49,14 +49,7 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
-            background: #fff;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        img {
-            pointer-events: none;
+            background: #fff
         }
         
     .img-full {
@@ -106,17 +99,17 @@
     </style>
 </head>
 <body>
-    <img src="imagem/fundo.png" alt="Fundo" class="img-fundo">
-    <img src="imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
-    <img src="imagem/bordacima.png" alt="Borda superior" class="borda-topo">
-    <img src="imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
+    <img src="../imagem/fundo.png" alt="Fundo" class="img-fundo">
+    <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
+    <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
+    <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
     <div class="mensagem-box" style="display: flex; flex-direction: column; align-items: center;">
         <span id="mensagem">Que alegria! Prepare-se, pois juntos vamos viver momentos mágicos no País das Maravilhas!</span>
         <a href="#" onclick="resetChoice()" style="margin-top: 10px; color: #ffe97b; font-size: 0.8em;">Mudou de ideia? Clique aqui!</a>
     </div>
     <script>
         let urlParams = new URLSearchParams(window.location.search);
-        let nome = urlParams.get('nome') || "Convidado";
+        let nome = urlParams.get('nome') || "YasminS";
         function resetChoice() {
             let choices = JSON.parse(localStorage.getItem('choices')) || {};
             if (choices[nome]) {
@@ -126,21 +119,6 @@
             }
             window.location.href = 'index.html';
         }
-
-        // Prevent right-click context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Prevent drag start
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Prevent text selection
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
     </script>
 </body>
 </html>

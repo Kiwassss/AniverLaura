@@ -6,13 +6,39 @@
     <title>Convite Laura</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
+        .imagem-meio {
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100vw;
+            max-width: 100vw;
+            height: auto;
+            z-index: 5;
+        }
+        .borda-topo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }
+        .borda-baixo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }
         html, body {
             margin: 0;
             padding: 0;
-            height: auto;
+            height: 100vh;
             width: 100vw;
-            overflow: hidden;
-            background: #fff;
+            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;
         }
         
 .img-full {
@@ -22,9 +48,6 @@
     width: 100vw;
     height: auto;
     max-height: 100vh;
-    object-fit: cover;
-    object-position: top;
-    z-index: 1;
 }
 
 .mensagem-box {
@@ -65,7 +88,10 @@
     </style>
 </head>
 <body>
-    <img src="imagem/Laura.png" alt="Laura" class="img-full">
+    <img src="imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
+    <img src="imagem/bordacima.png" alt="Borda superior" class="borda-topo">
+    <img src="imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
+    <!-- Imagem principal removida para adicionar imagens individualmente -->
     <div class="mensagem-box">
         <span id="mensagem"></span>
     </div>

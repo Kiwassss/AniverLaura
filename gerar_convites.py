@@ -25,7 +25,7 @@ html_base = """<!DOCTYPE html>
             height: auto;
             width: 100vw;
             overflow: hidden;
-            background: #fff;
+            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;  
         }}
         .img-full {{
             position: fixed;

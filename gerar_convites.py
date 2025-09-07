@@ -22,16 +22,16 @@ html_base = """<!DOCTYPE html>
         html, body {{
             margin: 0;
             padding: 0;
-            height: 100vh;
+            height: auto;
             width: 100vw;
             overflow: hidden;
             background: #fff;
         }}
         .img-full {{
-    position: fixed;
+        position: fixed;
     top: 0; left: 0;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     object-fit: contain;
     object-position: center;
     z-index: 1;

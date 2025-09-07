@@ -6,11 +6,21 @@
     <title>Convite Laura</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
+        .img-fundo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }
         .imagem-meio {
             display: block;
             margin: 0 auto;
             position: relative;
-            top: 50%;
+            top: 49%;
             transform: translateY(-50%);
             width: 100vw;
             max-width: 100vw;
@@ -31,7 +41,7 @@
             left: 0;
             width: 100vw;
             height: auto;
-            z-index: 10;
+            z-index: 5;
         }
         html, body {
             margin: 0;
@@ -39,44 +49,44 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
-            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;
+            background: #fff
         }
         
-        .img-full {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: auto;
-            max-height: 100vh;
-        }
+.img-full {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    max-height: 100vh;
+}
 
         .mensagem-box {
             position: absolute;
             left: 50%;
-            top: 50%; /* ajuste para alinhar verticalmente ao quadrado */
+            top: 48%; /* ajuste para alinhar verticalmente ao quadrado */
             transform: translate(-50%, -50%);
             width: 200px !important; /* ajuste para a largura do quadrado vermelho */
-            height: 260px !important;  /* ajuste para a altura do quadrado vermelho */
+            height: 400px !important;  /* ajuste para a altura do quadrado vermelho */
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2;
+            z-index: 300 !important;    
             text-align: center;
             overflow: hidden;
             background: none;
         }
-        .mensagem-box span {
-            font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
-            color: #ffe97b;
-            font-size: 1.5em !important;
-            word-break: break-word;
-            line-height: 1.1;
-            text-shadow: 2px 2px 8px #00000060;
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-        }
+.mensagem-box span {
+    font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+    color: #ffe97b;
+    font-size: 1.3em !important;
+    word-break: break-word;
+    line-height: 1.1;
+    text-shadow: 2px 2px 8px #00000060;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
         @media (max-width: 700px) {
             .mensagem-box {
                 width: 90vw;
@@ -89,11 +99,71 @@
     </style>
 </head>
 <body>
+    <img src="../imagem/fundo.png" alt="Fundo" class="img-fundo">
     <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
     <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
     <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
-    <div class="mensagem-box">
-        <span id="mensagem">Diego, siga o coelho branco e venha viver meus 15 anos no país das maravilhas!`</span>
+    <!-- Imagem principal removida para adicionar imagens individualmente -->
+    <div class="mensagem-box" style="display: flex; flex-direction: column; align-items: center;">
+        <span id="mensagem"></span>
+        <div class="confirm-buttons" style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+            <button style="padding: 10px 20px; border: 2px solid #fff; border-radius: 12px; background: transparent; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: 1.2em; cursor: pointer;">SIM</button>
+            <button style="padding: 10px 20px; border: 2px solid #fff; border-radius: 12px; background: transparent; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: 1.2em; cursor: pointer;">NÃO</button>
+        </div>
     </div>
+    <script>
+        let nome = "Diego";
+        const mensagemElement = document.getElementById('mensagem');
+        mensagemElement.textContent = `${nome}, Siga o coelho branco e venha viver meus 15 anos no País das Maravilhas! Confirme sua presença para fazer parte dessa aventura inesquecível!`;
+
+        // Load choices from localStorage
+        let choices = JSON.parse(localStorage.getItem('choices')) || {};
+
+        // Check if already chosen and redirect
+        if (choices[nome] && choices[nome].choice) {
+            if (choices[nome].choice === 'sim') {
+                window.location.href = 'Sim.html?nome=' + encodeURIComponent(nome);
+            } else if (choices[nome].choice === 'nao') {
+                window.location.href = 'Nao.html?nome=' + encodeURIComponent(nome);
+            }
+        }
+
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent drag start
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Button click handlers
+        const buttons = document.querySelectorAll('.confirm-buttons button');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.textContent === 'SIM') {
+                    choices[nome] = choices[nome] || {resets: 0, history: []};
+                    choices[nome].history.push('sim');
+                    choices[nome].choice = 'sim';
+                    localStorage.setItem('choices', JSON.stringify(choices));
+                    mensagemElement.textContent = "Que alegria! Prepare-se, pois juntos vamos viver momentos mágicos no País das Maravilhas!";
+                    window.location.href = 'Sim.html?nome=' + encodeURIComponent(nome);
+                } else if (button.textContent === 'NÃO') {
+                    choices[nome] = choices[nome] || {resets: 0, history: []};
+                    choices[nome].history.push('nao');
+                    choices[nome].choice = 'nao';
+                    localStorage.setItem('choices', JSON.stringify(choices));
+                    mensagemElement.textContent = "Que pena! O País das Maravilhas sentirá sua falta nessa aventura inesquecível. Esperamos te ver em outra ocasião!";
+                    window.location.href = 'Nao.html?nome=' + encodeURIComponent(nome);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

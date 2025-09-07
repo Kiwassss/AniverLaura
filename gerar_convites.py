@@ -10,7 +10,7 @@ nomes = [
     "Zuleica", "Arthur", "Bianca", "Caio", "Duda", "Enzo", "Flávia", "Gustavo", "Heloísa", "Ingrid", "Jorge"
 ]
 
-# HTML base do convite (ajuste o caminho da imagem se necessário)
+# HTML base do convite (ajustado para corresponder ao index.html atual)
 html_base = """<!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,14 +19,42 @@ html_base = """<!DOCTYPE html>
     <title>Convite Laura</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
+        .imagem-meio {{
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100vw;
+            max-width: 100vw;
+            height: auto;
+            z-index: 5;
+        }}
+        .borda-topo {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }}
+        .borda-baixo {{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }}
         html, body {{
             margin: 0;
             padding: 0;
-            height: auto;
+            height: 100vh;
             width: 100vw;
             overflow: hidden;
-            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;  
+            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;
         }}
+        
         .img-full {{
             position: fixed;
             top: 0;
@@ -34,10 +62,8 @@ html_base = """<!DOCTYPE html>
             width: 100vw;
             height: auto;
             max-height: 100vh;
-            object-fit: cover;
-            object-position: top;
-            z-index: 1;
         }}
+
         .mensagem-box {{
             position: absolute;
             left: 50%;
@@ -76,7 +102,9 @@ html_base = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <img src="../imagem/Laura.png" alt="Laura" class="img-full">
+    <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
+    <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
+    <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
     <div class="mensagem-box">
         <span id="mensagem">{mensagem}</span>
     </div>
@@ -90,7 +118,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 for nome in nomes:
     pasta = os.path.join(base_dir, nome)
     os.makedirs(pasta, exist_ok=True)
-    mensagem = f"{nome}, você foi convidado para a festa de 15 anos da Laura!"
+    mensagem = f"{nome}, siga o coelho branco e venha viver meus 15 anos no país das maravilhas!`"
     with open(os.path.join(pasta, "index.html"), "w", encoding="utf-8") as f:
         f.write(html_base.format(mensagem=mensagem))
 

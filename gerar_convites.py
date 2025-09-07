@@ -10,8 +10,8 @@ nomes = [
     "Zuleica", "Arthur", "Bianca", "Caio", "Duda", "Enzo", "Flávia", "Gustavo", "Heloísa", "Ingrid", "Jorge"
 ]
 
-# HTML base do convite (ajustado para corresponder ao index.html atual)
-html_base = """<!DOCTYPE html>
+# HTML base para index.html
+html_index = """<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -19,11 +19,21 @@ html_base = """<!DOCTYPE html>
     <title>Convite Laura</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
+        .img-fundo {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }}
         .imagem-meio {{
             display: block;
             margin: 0 auto;
             position: relative;
-            top: 50%;
+            top: 49%;
             transform: translateY(-50%);
             width: 100vw;
             max-width: 100vw;
@@ -44,7 +54,7 @@ html_base = """<!DOCTYPE html>
             left: 0;
             width: 100vw;
             height: auto;
-            z-index: 10;
+            z-index: 5;
         }}
         html, body {{
             margin: 0;
@@ -52,44 +62,44 @@ html_base = """<!DOCTYPE html>
             height: 100vh;
             width: 100vw;
             overflow: hidden;
-            background: linear-gradient(90deg, rgba(87,164,208,0.425) 0%, rgba(94,208,239,0.425) 100%) !important;
+            background: #fff
         }}
         
-        .img-full {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: auto;
-            max-height: 100vh;
-        }}
+.img-full {{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    max-height: 100vh;
+}}
 
         .mensagem-box {{
             position: absolute;
             left: 50%;
-            top: 50%; /* ajuste para alinhar verticalmente ao quadrado */
+            top: 48%; /* ajuste para alinhar verticalmente ao quadrado */
             transform: translate(-50%, -50%);
             width: 200px !important; /* ajuste para a largura do quadrado vermelho */
-            height: 260px !important;  /* ajuste para a altura do quadrado vermelho */
+            height: 400px !important;  /* ajuste para a altura do quadrado vermelho */
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2;
+            z-index: 300 !important;    
             text-align: center;
             overflow: hidden;
             background: none;
         }}
-        .mensagem-box span {{
-            font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
-            color: #ffe97b;
-            font-size: 1.5em !important;
-            word-break: break-word;
-            line-height: 1.1;
-            text-shadow: 2px 2px 8px #00000060;
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-        }}
+.mensagem-box span {{
+    font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+    color: #ffe97b;
+    font-size: 1.3em !important;
+    word-break: break-word;
+    line-height: 1.1;
+    text-shadow: 2px 2px 8px #00000060;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}}
         @media (max-width: 700px) {{
             .mensagem-box {{
                 width: 90vw;
@@ -102,12 +112,326 @@ html_base = """<!DOCTYPE html>
     </style>
 </head>
 <body>
+    <img src="../imagem/fundo.png" alt="Fundo" class="img-fundo">
     <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
     <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
     <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
-    <div class="mensagem-box">
-        <span id="mensagem">{mensagem}</span>
+    <!-- Imagem principal removida para adicionar imagens individualmente -->
+    <div class="mensagem-box" style="display: flex; flex-direction: column; align-items: center;">
+        <span id="mensagem"></span>
+        <div class="confirm-buttons" style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+            <button style="padding: 10px 20px; border: 2px solid #fff; border-radius: 12px; background: transparent; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: 1.2em; cursor: pointer;">SIM</button>
+            <button style="padding: 10px 20px; border: 2px solid #fff; border-radius: 12px; background: transparent; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: 1.2em; cursor: pointer;">NÃO</button>
+        </div>
     </div>
+    <script>
+        let nome = "{nome}";
+        const mensagemElement = document.getElementById('mensagem');
+        mensagemElement.textContent = `${{nome}}, Siga o coelho branco e venha viver meus 15 anos no País das Maravilhas! Confirme sua presença para fazer parte dessa aventura inesquecível!`;
+
+        // Load choices from localStorage
+        let choices = JSON.parse(localStorage.getItem('choices')) || {{}};
+
+        // Check if already chosen and redirect
+        if (choices[nome] && choices[nome].choice) {{
+            if (choices[nome].choice === 'sim') {{
+                window.location.href = 'Sim.html?nome=' + encodeURIComponent(nome);
+            }} else if (choices[nome].choice === 'nao') {{
+                window.location.href = 'Nao.html?nome=' + encodeURIComponent(nome);
+            }}
+        }}
+
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', function(e) {{
+            e.preventDefault();
+        }});
+
+        // Prevent drag start
+        document.addEventListener('dragstart', function(e) {{
+            e.preventDefault();
+        }});
+
+        // Prevent text selection
+        document.addEventListener('selectstart', function(e) {{
+            e.preventDefault();
+        }});
+
+        // Button click handlers
+        const buttons = document.querySelectorAll('.confirm-buttons button');
+        buttons.forEach(button => {{
+            button.addEventListener('click', () => {{
+                if (button.textContent === 'SIM') {{
+                    choices[nome] = choices[nome] || {{resets: 0, history: []}};
+                    choices[nome].history.push('sim');
+                    choices[nome].choice = 'sim';
+                    localStorage.setItem('choices', JSON.stringify(choices));
+                    mensagemElement.textContent = "Que alegria! Prepare-se, pois juntos vamos viver momentos mágicos no País das Maravilhas!";
+                    window.location.href = 'Sim.html?nome=' + encodeURIComponent(nome);
+                }} else if (button.textContent === 'NÃO') {{
+                    choices[nome] = choices[nome] || {{resets: 0, history: []}};
+                    choices[nome].history.push('nao');
+                    choices[nome].choice = 'nao';
+                    localStorage.setItem('choices', JSON.stringify(choices));
+                    mensagemElement.textContent = "Que pena! O País das Maravilhas sentirá sua falta nessa aventura inesquecível. Esperamos te ver em outra ocasião!";
+                    window.location.href = 'Nao.html?nome=' + encodeURIComponent(nome);
+                }}
+            }});
+        }});
+    </script>
+</body>
+</html>
+"""
+
+# HTML base para Sim.html
+html_sim = """<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Confirmação - Sim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+        .img-fundo {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }}
+        .imagem-meio {{
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            top: 49%;
+            transform: translateY(-50%);
+            width: 100vw;
+            max-width: 100vw;
+            height: auto;
+            z-index: 5;
+        }}
+        .borda-topo {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }}
+        .borda-baixo {{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 5;
+        }}
+        html, body {{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #fff
+        }}
+        
+    .img-full {{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        max-height: 100vh;
+    }}
+
+        .mensagem-box {{
+            position: absolute;
+            left: 50%;
+            top: 48%; /* ajuste para alinhar verticalmente ao quadrado */
+            transform: translate(-50%, -50%);
+            width: 200px !important; /* ajuste para a largura do quadrado vermelho */
+            height: 400px !important;  /* ajuste para a altura do quadrado vermelho */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 300 !important;    
+            text-align: center;
+            overflow: hidden;
+            background: none;
+        }}
+    .mensagem-box span {{
+        font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+        color: #ffe97b;
+        font-size: 1.5em !important;
+        word-break: break-word;
+        line-height: 1.1;
+        text-shadow: 2px 2px 8px #00000060;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }}
+        @media (max-width: 700px) {{
+            .mensagem-box {{
+                width: 90vw;
+                height: 70px;
+            }}
+            .mensagem-box span {{
+                font-size: 1em;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <img src="../imagem/fundo.png" alt="Fundo" class="img-fundo">
+    <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
+    <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
+    <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
+    <div class="mensagem-box" style="display: flex; flex-direction: column; align-items: center;">
+        <span id="mensagem">Que alegria! Prepare-se, pois juntos vamos viver momentos mágicos no País das Maravilhas!</span>
+        <a href="#" onclick="resetChoice()" style="margin-top: 10px; color: #ffe97b; font-size: 0.8em;">Mudou de ideia? Clique aqui!</a>
+    </div>
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let nome = urlParams.get('nome') || "{nome}";
+        function resetChoice() {{
+            let choices = JSON.parse(localStorage.getItem('choices')) || {{}};
+            if (choices[nome]) {{
+                choices[nome].resets = (choices[nome].resets || 0) + 1;
+                choices[nome].choice = null;
+                localStorage.setItem('choices', JSON.stringify(choices));
+            }}
+            window.location.href = 'index.html';
+        }}
+    </script>
+</body>
+</html>
+"""
+
+# HTML base para Nao.html
+html_nao = """<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Confirmação - Não</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+        .img-fundo {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }}
+        .imagem-meio {{
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            top: 49%;
+            transform: translateY(-50%);
+            width: 100vw;
+            max-width: 100vw;
+            height: auto;
+            z-index: 5;
+        }}
+        .borda-topo {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 10;
+        }}
+        .borda-baixo {{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            z-index: 5;
+        }}
+        html, body {{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #fff
+        }}
+        
+    .img-full {{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        max-height: 100vh;
+    }}
+
+        .mensagem-box {{
+            position: absolute;
+            left: 50%;
+            top: 48%; /* ajuste para alinhar verticalmente ao quadrado */
+            transform: translate(-50%, -50%);
+            width: 200px !important; /* ajuste para a largura do quadrado vermelho */
+            height: 400px !important;  /* ajuste para a altura do quadrado vermelho */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 300 !important;    
+            text-align: center;
+            overflow: hidden;
+            background: none;
+        }}
+    .mensagem-box span {{
+        font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+        color: #ffe97b;
+        font-size: 1.5em !important;
+        word-break: break-word;
+        line-height: 1.1;
+        text-shadow: 2px 2px 8px #00000060;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }}
+        @media (max-width: 700px) {{
+            .mensagem-box {{
+                width: 90vw;
+                height: 70px;
+            }}
+            .mensagem-box span {{
+                font-size: 1em;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <img src="../imagem/fundo.png" alt="Fundo" class="img-fundo">
+    <img src="../imagem/meio1.png" alt="Imagem do meio" class="imagem-meio">
+    <img src="../imagem/bordacima.png" alt="Borda superior" class="borda-topo">
+    <img src="../imagem/bordabaixo.png" alt="Borda inferior" class="borda-baixo">
+    <div class="mensagem-box" style="display: flex; flex-direction: column; align-items: center;">
+        <span id="mensagem">Que pena! O País das Maravilhas sentirá sua falta nessa aventura inesquecível.</span>
+        <a href="#" onclick="resetChoice()" style="margin-top: 10px; color: #ffe97b; font-size: 0.8em;">Mudou de ideia? Clique aqui!</a>
+    </div>
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let nome = urlParams.get('nome') || "{nome}";
+        function resetChoice() {{
+            let choices = JSON.parse(localStorage.getItem('choices')) || {{}};
+            if (choices[nome]) {{
+                choices[nome].resets = (choices[nome].resets || 0) + 1;
+                choices[nome].choice = null;
+                localStorage.setItem('choices', JSON.stringify(choices));
+            }}
+            window.location.href = 'index.html';
+        }}
+    </script>
 </body>
 </html>
 """
@@ -118,8 +442,15 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 for nome in nomes:
     pasta = os.path.join(base_dir, nome)
     os.makedirs(pasta, exist_ok=True)
-    mensagem = f"{nome}, siga o coelho branco e venha viver meus 15 anos no país das maravilhas!`"
     with open(os.path.join(pasta, "index.html"), "w", encoding="utf-8") as f:
-        f.write(html_base.format(mensagem=mensagem))
+        f.write(html_index.format(nome=nome))
+
+    # Gerar Sim.html
+    with open(os.path.join(pasta, "Sim.html"), "w", encoding="utf-8") as f:
+        f.write(html_sim.format(nome=nome))
+
+    # Gerar Nao.html
+    with open(os.path.join(pasta, "Nao.html"), "w", encoding="utf-8") as f:
+        f.write(html_nao.format(nome=nome))
 
 print("Convites gerados com sucesso!")

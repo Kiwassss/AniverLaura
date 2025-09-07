@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de QR Code</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 40px; }
+    #qrcode { margin: 20px auto; }
+    input, button { padding: 8px; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h2>Gerador de QR Code</h2>
+  <input type="text" id="inputUrl" placeholder="Digite o link ou texto" value="https://seusite.com/confirmar?token=UNICO123">
+  <button onclick="gerarQRCode()">Gerar QR Code</button>
+  <div id="qrcode"></div>
+
+  <script>
+    function gerarQRCode() {
+      var url = document.getElementById("inputUrl").value;
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: url,
+        width: 180,
+        height: 180
+      });
+    }
+    // Gera QR Code inicial
+    gerarQRCode();
+  </script>
+</body>
+</html>

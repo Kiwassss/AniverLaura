@@ -1,0 +1,95 @@
+import os
+
+# Lista de 60 nomes aleatórios para teste
+nomes = [
+    "Ana", "Bruno", "Camila", "Daniel", "Eduardo", "Fernanda", "Gabriel", "Helena", "Igor", "Juliana",
+    "Karina", "Lucas", "Mariana", "Natan", "Olivia", "Paulo", "Quésia", "Rafael", "Sabrina", "Tiago",
+    "Ursula", "Vanessa", "Wagner", "Xuxa", "Yasmin", "Zeca", "Alice", "Bernardo", "Clara", "Diego",
+    "Elisa", "Felipe", "Giovana", "Hugo", "Isabela", "João", "Kelly", "Leonardo", "Mirela", "Nicolas",
+    "Otávio", "Priscila", "Rodrigo", "Samara", "Tadeu", "Ulisses", "Vitória", "William", "Yasmin S.",
+    "Zuleica", "Arthur", "Bianca", "Caio", "Duda", "Enzo", "Flávia", "Gustavo", "Heloísa", "Ingrid", "Jorge"
+]
+
+# HTML base do convite (ajuste o caminho da imagem se necessário)
+html_base = """<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Convite Laura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+        html, body {{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #fff;
+        }}
+        .img-full {{
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    object-position: center;
+    z-index: 1;
+        }}
+        .mensagem-box {{
+    position: absolute;
+    left: 50%;
+    top: 50%; /* ajuste para alinhar verticalmente ao quadrado */
+    transform: translate(-50%, -50%);
+    width: 200px !important; /* ajuste para a largura do quadrado vermelho */
+    height: 260px !important;  /* ajuste para a altura do quadrado vermelho */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    text-align: center;
+    overflow: hidden;
+    background: none;
+        }}
+        .mensagem-box span {{
+    font-family: 'Luckiest Guy', cursive, Arial, sans-serif;
+    color: #ffe97b;
+    font-size: 1.5em !important;
+    word-break: break-word;
+    line-height: 1.1;
+    text-shadow: 2px 2px 8px #00000060;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+        }}
+        @media (max-width: 700px) {{
+            .mensagem-box {{
+                width: 90vw;
+                height: 70px;
+            }}
+            .mensagem-box span {{
+                font-size: 1em;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <img src="../imagem/Laura.png" alt="Laura" class="img-full">
+    <div class="mensagem-box">
+        <span id="mensagem">{mensagem}</span>
+    </div>
+</body>
+</html>
+"""
+
+# Caminho base do projeto (ajuste se necessário)
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+for nome in nomes:
+    pasta = os.path.join(base_dir, nome)
+    os.makedirs(pasta, exist_ok=True)
+    mensagem = f"{nome}, você foi convidado para a festa de 15 anos da Laura!"
+    with open(os.path.join(pasta, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html_base.format(mensagem=mensagem))
+
+print("Convites gerados com sucesso!")
